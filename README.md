@@ -40,7 +40,7 @@ B5: Sau khi moveback thành công thì cấp quyền cho nó: ```chown mysql:mys
 IDENTIFIED BY '$replicapass';```
 - Chạy lệnh test trên máy slave: ```mysql --host=Source --user=repl --password=$replicapass```
 - Xem quyền: ```SHOW GRANTS\G```
-## 4. Replica
+## 5. Replica
 - Trên máy slave, chạy lệnh: ```cat /var/lib/mysql/xtrabackup_info | grep binlog``` để hiển thị thông tin binlog
 - Đăng nhập vào mysql
 - Dừng slave: ```stop slave;```
@@ -53,3 +53,8 @@ Slave_IO_Running: Yes
 Slave_SQL_Running: Yes
 Seconds_Behind_Master: xx
 ```
+### 6. Compress
+- Compress files: `xtrabackup --backup --compress --user=yourDBuser --password=MaGiCdB1 --target-dir=/data/backup`
+- Decompress: `xtrabackup --decompress --target-dir=/data/backup/`
+- Prepare: `xtrabackup --prepare --target-dir=/data/compressed/`
+- Restore như trên.
